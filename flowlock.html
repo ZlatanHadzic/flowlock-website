@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0A0A14;
+  --blue:#4F8CFF;
+  --purple:#A78BFA;
+  --green:#00D4A0;
+  --yellow:#FFCC00;
+  --red:#FF3B5C;
+  --card:#111120;
+  --border:rgba(255,255,255,0.08);
+  --text:#E8E8F0;
+  --muted:#8888A8;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden}
+h1,h2,h3,.label{font-family:'Syne',sans-serif}
+
+/* ORBS */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:float 8s ease-in-out infinite}
+.orb-blue{width:400px;height:400px;background:rgba(79,140,255,0.18);top:-80px;right:-100px;animation-delay:0s}
+.orb-purple{width:300px;height:300px;background:rgba(167,139,250,0.15);top:200px;left:-80px;animation-delay:-4s}
+.orb-blue2{width:200px;height:200px;background:rgba(79,140,255,0.12);bottom:100px;right:50px;animation-delay:-2s}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,20,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-badge{font-size:10px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1px;color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:4px 10px}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:100px 20px 60px;text-align:center}
+.partner-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:30px;padding:8px 16px;font-size:12px;font-family:'Syne',sans-serif;font-weight:600;letter-spacing:1px;color:var(--muted);margin-bottom:28px}
+.partner-badge span{background:linear-gradient(135deg,#FFD700,#FFA500);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+h1.hero-title{font-size:clamp(32px,8vw,64px);font-weight:800;line-height:1.1;margin-bottom:20px;letter-spacing:-1px}
+h1.hero-title .accent{background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:clamp(15px,4vw,20px);color:var(--muted);max-width:540px;line-height:1.6;margin-bottom:36px}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:48px}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.5px;border:none;border-radius:14px;padding:14px 28px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(79,140,255,0.4)}
+.btn-ghost{background:transparent;color:var(--text);font-family:'Syne',sans-serif;font-weight:600;font-size:14px;border:1px solid var(--border);border-radius:14px;padding:14px 28px;cursor:pointer;transition:border-color .2s,background .2s}
+.btn-ghost:hover{border-color:var(--blue);background:rgba(79,140,255,0.08)}
+
+/* PHONE MOCKUP HERO */
+.phone-hero{width:200px;height:380px;border-radius:36px;background:linear-gradient(160deg,#1a1a2e,#16162a);border:2px solid rgba(255,255,255,0.12);position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.05);flex-shrink:0}
+.phone-notch{width:80px;height:6px;background:rgba(255,255,255,0.15);border-radius:10px;margin:12px auto 0}
+.phone-screen-content{padding:16px 12px}
+.phone-app-bg{background:linear-gradient(160deg,#1e1e3a,#0d0d20);border-radius:16px;padding:12px;margin-bottom:8px}
+.phone-app-header{font-size:9px;font-family:'Syne',sans-serif;font-weight:700;color:var(--muted);margin-bottom:8px}
+.phone-app-items{display:flex;flex-direction:column;gap:6px}
+.phone-item{background:rgba(255,255,255,0.05);border-radius:8px;padding:6px 8px;display:flex;align-items:center;justify-content:space-between}
+.phone-item-name{font-size:8px;color:var(--text)}
+.phone-item-price{font-size:8px;font-weight:700;color:var(--blue)}
+.phone-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,transparent 0%,rgba(10,10,20,0.95) 20%,#0e0e1e 100%);border-radius:24px 24px 34px 34px;padding:14px 14px 20px;border-top:1px solid rgba(255,255,255,0.1)}
+.overlay-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,59,92,0.15);border:1px solid rgba(255,59,92,0.4);border-radius:20px;padding:3px 8px;font-size:7px;font-family:'Syne',sans-serif;font-weight:700;color:var(--red);margin-bottom:8px}
+.overlay-price{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--red);line-height:1}
+.overlay-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;margin:4px 0 3px}
+.overlay-sub{font-size:8px;color:var(--muted);line-height:1.3;margin-bottom:8px}
+.overlay-bar-bg{background:rgba(255,255,255,0.08);border-radius:4px;height:4px;margin-bottom:10px;overflow:visible}
+.overlay-bar-fill{height:4px;background:var(--red);border-radius:4px;width:100%;position:relative}
+.overlay-bar-fill::after{content:'';position:absolute;right:-2px;top:-2px;width:8px;height:8px;background:var(--red);border-radius:50%;box-shadow:0 0 8px var(--red)}
+.overlay-btns{display:flex;gap:4px}
+.ob{flex:1;border-radius:8px;padding:5px 2px;font-size:7px;font-family:'Syne',sans-serif;font-weight:700;text-align:center;cursor:pointer;border:1px solid var(--border);color:var(--muted);background:transparent}
+.ob-yellow{background:rgba(255,204,0,0.15);border-color:rgba(255,204,0,0.4);color:var(--yellow)}
+.ob-red{background:transparent;border-color:var(--border);color:var(--muted)}
+
+/* SECTIONS */
+section{padding:80px 20px;max-width:1100px;margin:0 auto}
+.section-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.section-title{font-size:clamp(26px,5vw,42px);font-weight:800;line-height:1.2;margin-bottom:16px}
+.section-sub{color:var(--muted);font-size:16px;line-height:1.6;max-width:560px}
+
+/* HOW IT WORKS */
+#how{max-width:1100px;margin:0 auto;padding:80px 20px}
+.cards-row{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px}
+@media(min-width:640px){.cards-row{grid-template-columns:repeat(3,1fr)}}
+.how-card{background:var(--card);border-radius:20px;padding:28px 24px;border:1px solid var(--border);position:relative;overflow:hidden;transition:transform .2s}
+.how-card:hover{transform:translateY(-4px)}
+.how-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.how-card.blue::before{background:linear-gradient(90deg,var(--blue),var(--purple))}
+.how-card.red::before{background:linear-gradient(90deg,var(--red),#FF6B8A)}
+.how-card.green::before{background:linear-gradient(90deg,var(--green),#00A87F)}
+.how-icon{font-size:32px;margin-bottom:16px}
+.how-card h3{font-size:18px;font-weight:700;margin-bottom:10px}
+.how-card p{font-size:14px;color:var(--muted);line-height:1.6}
+.step-num{position:absolute;top:20px;right:20px;font-family:'Syne',sans-serif;font-size:48px;font-weight:800;opacity:0.06;line-height:1}
+
+/* POPUP DEMO */
+.toggle-row{display:flex;gap:10px;justify-content:center;margin:32px 0;flex-wrap:wrap}
+.toggle-btn{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;padding:10px 20px;border-radius:30px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.toggle-btn.active-red{background:rgba(255,59,92,0.15);border-color:var(--red);color:var(--red)}
+.toggle-btn.active-yellow{background:rgba(255,204,0,0.15);border-color:var(--yellow);color:var(--yellow)}
+.toggle-btn.active-green{background:rgba(0,212,160,0.15);border-color:var(--green);color:var(--green)}
+.demo-phone{width:260px;height:500px;border-radius:44px;background:linear-gradient(160deg,#1a1a2e,#13132a);border:2px solid rgba(255,255,255,0.12);position:relative;overflow:hidden;margin:0 auto;box-shadow:0 50px 100px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.04)}
+.demo-notch{width:90px;height:7px;background:rgba(255,255,255,0.15);border-radius:10px;margin:14px auto 0}
+.demo-screen{padding:20px 16px 0}
+.demo-app-name{font-size:10px;color:var(--muted);font-family:'Syne',sans-serif;margin-bottom:12px;text-align:left}
+.demo-product{background:rgba(255,255,255,0.04);border-radius:14px;padding:14px;margin-bottom:10px;text-align:left;display:flex;gap:12px;align-items:center}
+.demo-product-img{width:50px;height:50px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.demo-product-name{font-size:11px;font-weight:600;margin-bottom:4px}
+.demo-product-price{font-size:16px;font-weight:800;font-family:'Syne',sans-serif}
+.demo-sheet{position:absolute;bottom:0;left:0;right:0;border-radius:28px 28px 42px 42px;padding:18px 18px 24px;border-top:1px solid rgba(255,255,255,0.08);transition:all .4s ease}
+.sheet-badge{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:5px 12px;font-size:10px;font-family:'Syne',sans-serif;font-weight:700;margin-bottom:12px;transition:all .4s}
+.sheet-price{font-family:'Syne',sans-serif;font-size:38px;font-weight:800;line-height:1;margin-bottom:6px;transition:color .4s}
+.sheet-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:4px}
+.sheet-sub{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:12px}
+.sheet-progress-bg{background:rgba(255,255,255,0.08);border-radius:6px;height:6px;margin-bottom:14px;overflow:hidden}
+.sheet-progress-fill{height:6px;border-radius:6px;transition:all .4s}
+.sheet-btns{display:flex;gap:8px}
+.sb{flex:1;border-radius:12px;padding:9px 4px;font-size:10px;font-family:'Syne',sans-serif;font-weight:700;text-align:center;cursor:pointer;border:1px solid var(--border);color:var(--muted);background:transparent;transition:all .3s}
+
+/* REWARDS */
+.rewards-card{background:linear-gradient(135deg,rgba(255,204,0,0.06) 0%,rgba(255,150,0,0.04) 100%);border:1px solid rgba(255,204,0,0.2);border-radius:24px;padding:36px 28px}
+.rewards-list{display:flex;flex-direction:column;gap:14px;margin-bottom:24px}
+.reward-row{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.04);border-radius:14px;padding:14px 18px;border:1px solid var(--border)}
+.reward-left{font-size:14px;font-weight:500}
+.reward-right{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:var(--yellow)}
+.rewards-note{text-align:center;background:rgba(255,204,0,0.1);border:1px solid rgba(255,204,0,0.25);border-radius:14px;padding:14px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--yellow)}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:36px}
+@media(min-width:640px){.stats-grid{grid-template-columns:repeat(3,1fr)}}
+.stat-card{background:var(--card);border-radius:20px;padding:28px 24px;border:1px solid var(--border);text-align:center}
+.stat-num{font-family:'Syne',sans-serif;font-size:clamp(36px,8vw,52px);font-weight:800;margin-bottom:8px}
+.stat-card:nth-child(1) .stat-num{color:var(--red)}
+.stat-card:nth-child(2) .stat-num{color:var(--green)}
+.stat-card:nth-child(3) .stat-num{color:var(--yellow)}
+.stat-label{font-size:14px;color:var(--muted);line-height:1.5}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px}
+@media(min-width:640px){.team-grid{grid-template-columns:repeat(3,1fr)}}
+.team-card{background:var(--card);border-radius:20px;padding:28px 20px;border:1px solid var(--border);text-align:center;transition:transform .2s}
+.team-card:hover{transform:translateY(-4px)}
+.avatar{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;margin:0 auto 16px}
+.team-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px}
+.team-role{display:inline-block;font-size:11px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1px;background:rgba(79,140,255,0.12);border:1px solid rgba(79,140,255,0.3);color:var(--blue);border-radius:20px;padding:4px 12px}
+
+/* HASHTAGS */
+.hashtag{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;background:rgba(79,140,255,0.08);border:1px solid rgba(79,140,255,0.2);color:var(--blue);border-radius:30px;padding:6px 14px;cursor:pointer;text-decoration:none;transition:all .2s}
+.hashtag:hover{background:rgba(79,140,255,0.15)}
+.mention{font-size:12px;color:var(--muted);background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:30px;padding:5px 12px}
+
+/* SCROLL FADE */
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">FlowLock</div>
+  <div class="nav-badge">FinZ Flow 2026</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb orb-blue"></div>
+  <div class="orb orb-purple"></div>
+  <div class="orb orb-blue2"></div>
+  
+  <div class="partner-badge"><span>✦ POWERED BY VISA × RAIFFEISEN BANK BIH ✦</span></div>
+  
+  <h1 class="hero-title">
+    Zaustavi se.<br>
+    <span class="accent">Razmisli.</span><br>
+    Zaštiti novac.
+  </h1>
+  
+  <p class="hero-sub">FlowLock detektuje svaku kupovinu i pita: <strong>Da li ti ovo stvarno treba?</strong></p>
+  
+  <div class="btn-row">
+    <button class="btn-primary">📱 Preuzmi aplikaciju</button>
+    <button class="btn-ghost">Saznaj više ↓</button>
+  </div>
+  
+  <div class="phone-hero">
+    <div class="phone-notch"></div>
+    <div class="phone-screen-content">
+      <div class="phone-app-bg">
+        <div class="phone-app-header">🛒 MOJA KORPA</div>
+        <div class="phone-app-items">
+          <div class="phone-item"><span class="phone-item-name">Patike Nike</span><span class="phone-item-price">149 KM</span></div>
+          <div class="phone-item"><span class="phone-item-name">Dukserica</span><span class="phone-item-price">89 KM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-overlay">
+      <div class="overlay-badge">🚨 PREKORAČENJE BUDŽETA</div>
+      <div class="overlay-price">149 KM</div>
+      <div class="overlay-title">Stani! Ovo je previše.</div>
+      <div class="overlay-sub">49 KM iznad tvog budžeta od 100 KM.</div>
+      <div class="overlay-bar-bg"><div class="overlay-bar-fill"></div></div>
+      <div class="overlay-btns">
+        <div class="ob">Odustani</div>
+        <div class="ob ob-yellow">⏳ 24h</div>
+        <div class="ob ob-red">Kupi →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<div id="how" class="fade-in" style="max-width:1100px;margin:0 auto;padding:80px 20px">
+  <div class="section-label">Kako funkcioniše</div>
+  <h2 class="section-title">Tri koraka do bolje finansijske kontrole</h2>
+  <div class="cards-row">
+    <div class="how-card blue">
+      <div class="step-num">01</div>
+      <div class="how-icon">🔍</div>
+      <h3>Detekcija</h3>
+      <p>FlowLock automatski skenira svaki checkout i pronalazi cijenu u realnom vremenu.</p>
+    </div>
+    <div class="how-card red">
+      <div class="step-num">02</div>
+      <div class="how-icon">🚨</div>
+      <h3>Upozorenje</h3>
+      <p>Pametni popup iskače IZNAD svake aplikacije s analizom budžeta.</p>
+    </div>
+    <div class="how-card green">
+      <div class="step-num">03</div>
+      <div class="how-icon">🏆</div>
+      <h3>Nagrađivanje</h3>
+      <p>Odlaganje kupovine = Visa Rewards poeni. Do 120 KM godišnje.</p>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP DEMO -->
+<div id="demo" class="fade-in" style="max-width:700px;margin:0 auto;padding:80px 20px;text-align:center">
+  <div class="section-label" style="text-align:center">Interaktivni demo</div>
+  <h2 class="section-title" style="text-align:center">Vidi FlowLock na djelu</h2>
+  <p style="color:var(--muted);font-size:15px;margin-bottom:0">Odaberi scenario i vidi kako reaguje FlowLock overlay.</p>
+  
+  <div class="toggle-row">
+    <button class="toggle-btn active-red" onclick="setDemo('red')">🔴 Prekoračenje</button>
+    <button class="toggle-btn" onclick="setDemo('yellow')">🟡 Upozorenje</button>
+    <button class="toggle-btn" onclick="setDemo('green')">🟢 Sigurno</button>
+  </div>
+  
+  <div class="demo-phone" id="demo-phone">
+    <div class="demo-notch"></div>
+    <div class="demo-screen">
+      <div class="demo-app-name">🛍️ Online Shop BiH</div>
+      <div class="demo-product">
+        <div class="demo-product-img">👟</div>
+        <div>
+          <div class="demo-product-name">Nike Air Max 270</div>
+          <div class="demo-product-price" id="dp-price" style="color:var(--red)">149 KM</div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-sheet" id="demo-sheet" style="background:#0e0e1e">
+      <div class="sheet-badge" id="sheet-badge" style="background:rgba(255,59,92,0.12);border:1px solid rgba(255,59,92,0.35);color:var(--red)">🚨 PREKORAČENJE BUDŽETA</div>
+      <div class="sheet-price" id="sheet-price" style="color:var(--red)">149 KM</div>
+      <div class="sheet-title" id="sheet-title">Stani! Ovo je previše.</div>
+      <div class="sheet-sub" id="sheet-sub">149 KM je 49 KM iznad tvog budžeta od 100 KM.</div>
+      <div class="sheet-progress-bg"><div class="sheet-progress-fill" id="sheet-bar" style="background:var(--red);width:100%"></div></div>
+      <div class="sheet-btns">
+        <button class="sb" id="sb1">Odustani</button>
+        <button class="sb" id="sb2" style="background:rgba(255,204,0,0.12);border-color:rgba(255,204,0,0.4);color:var(--yellow)">⏳ Pričekaj 24h</button>
+        <button class="sb" id="sb3">Kupi svejedno →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REWARDS -->
+<div id="rewards" class="fade-in" style="padding:80px 20px;max-width:800px;margin:0 auto">
+  <div class="rewards-card">
+    <div class="section-label" style="color:var(--yellow)">Visa Rewards Program</div>
+    <h2 style="font-size:clamp(24px,5vw,36px);font-weight:800;margin-bottom:8px">Zaraduj dok štediš 💰</h2>
+    <p style="color:var(--muted);font-size:15px;margin-bottom:30px">Svaka pametna odluka donosi poene. Pravi novac, pravi benefiti.</p>
+    <div class="rewards-list">
+      <div class="reward-row"><span class="reward-left">⏳ Pričekaj 24h</span><span class="reward-right">+50 poena</span></div>
+      <div class="reward-row"><span class="reward-left">❌ Odustani od kupovine</span><span class="reward-right">+20 poena</span></div>
+      <div class="reward-row"><span class="reward-left">🛡️ 5 zaštićenih kupovina</span><span class="reward-right">+200 bonus</span></div>
+      <div class="reward-row"><span class="reward-left">📅 Ispod budžeta cijeli mjesec</span><span class="reward-right">+500 poena</span></div>
+    </div>
+    <div class="rewards-note">✨ Aktivni korisnik zarađuje do 120 KM godišnje</div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div id="stats" class="fade-in" style="padding:60px 20px;max-width:1000px;margin:0 auto">
+  <div class="section-label" style="text-align:center">Zašto to radi</div>
+  <h2 class="section-title" style="text-align:center;margin-bottom:36px">Brojke koje govore</h2>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num">73%</div>
+      <div class="stat-label">mladih žali za impulzivnim kupovinama</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">56%</div>
+      <div class="stat-label">manje impulzivnih kupovina uz 24h pravilo</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">120 KM</div>
+      <div class="stat-label">prosječna godišnja ušteda po korisniku</div>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div id="team" class="fade-in" style="padding:80px 20px;max-width:900px;margin:0 auto">
+  <div class="section-label">Tim</div>
+  <h2 class="section-title">Upoznaj nas</h2>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="avatar">AM</div>
+      <div class="team-name">Član tima 1</div>
+      <div class="team-role">Product &amp; Strategy</div>
+    </div>
+    <div class="team-card">
+      <div class="avatar">BK</div>
+      <div class="team-name">Član tima 2</div>
+      <div class="team-role">Tech &amp; Development</div>
+    </div>
+    <div class="team-card">
+      <div class="avatar">CL</div>
+      <div class="team-name">Član tima 3</div>
+      <div class="team-role">Marketing &amp; Finance</div>
+    </div>
+  </div>
+  <p style="margin-top:24px;text-align:center;color:var(--muted);font-size:13px">Tim [Naziv Tima] · [Naziv Škole] · FinZ Flow 2026</p>
+</div>
+
+<!-- FOOTER -->
+<div style="border-top:1px solid var(--border);padding:48px 20px 32px;max-width:1100px;margin:0 auto;text-align:center">
+  <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:26px;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px">FlowLock</div>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:24px">Zaštiti svoj budžet. Nagradi se. Rasti.</div>
+  <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap">
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:#1A1FFF;border:1px solid rgba(26,31,255,0.4);background:rgba(26,31,255,0.08);padding:8px 20px;border-radius:10px">VISA</div>
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:#FFD700;border:1px solid rgba(255,215,0,0.3);background:rgba(255,215,0,0.05);padding:8px 20px;border-radius:10px">RAIFFEISEN BANK BIH</div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:14px">
+    <a class="hashtag" href="#">#FinZFlow2026</a>
+    <a class="hashtag" href="#">#EkonomskaOlimpijadaBiH</a>
+    <a class="hashtag" href="#">#VisaTechnology</a>
+    <a class="hashtag" href="#">#RaiffeisenDigital</a>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:28px">
+    <span class="mention">@ekonomska.olimpijada</span>
+    <span class="mention">@visa_bh</span>
+    <span class="mention">@raiffeisenbankbih</span>
+    <span class="mention">@liberalniforum</span>
+  </div>
+  <div style="color:var(--muted);font-size:11px;font-family:'Syne',sans-serif;letter-spacing:2px">FinZ Flow · Ekonomska Olimpijada BiH 2026</div>
+</div>
+
+<script>
+const states = {
+  red: {
+    badge: '🚨 PREKORAČENJE BUDŽETA',
+    badgeBg: 'rgba(255,59,92,0.12)',
+    badgeBorder: 'rgba(255,59,92,0.35)',
+    badgeColor: '#FF3B5C',
+    price: '149 KM',
+    priceColor: '#FF3B5C',
+    title: 'Stani! Ovo je previše.',
+    sub: '149 KM je 49 KM iznad tvog budžeta od 100 KM.',
+    barColor: '#FF3B5C',
+    barWidth: '100%',
+    sheetBg: '#0e0e1e',
+    sb2Style: 'background:rgba(255,204,0,0.12);border-color:rgba(255,204,0,0.4);color:#FFCC00'
+  },
+  yellow: {
+    badge: '⚠️ BLIZU BUDŽETA',
+    badgeBg: 'rgba(255,204,0,0.12)',
+    badgeBorder: 'rgba(255,204,0,0.35)',
+    badgeColor: '#FFCC00',
+    price: '85 KM',
+    priceColor: '#FFCC00',
+    title: 'Pazi! Blizu si limite.',
+    sub: '85 KM je 85% tvog budžeta od 100 KM.',
+    barColor: '#FFCC00',
+    barWidth: '85%',
+    sheetBg: '#0e0e14',
+    sb2Style: 'background:rgba(255,204,0,0.12);border-color:rgba(255,204,0,0.4);color:#FFCC00'
+  },
+  green: {
+    badge: '✅ U OKVIRU BUDŽETA',
+    badgeBg: 'rgba(0,212,160,0.12)',
+    badgeBorder: 'rgba(0,212,160,0.35)',
+    badgeColor: '#00D4A0',
+    price: '45 KM',
+    priceColor: '#00D4A0',
+    title: 'Odlično! Budžet pod kontrolom.',
+    sub: '45 KM je 45% tvog budžeta. Pametan si!',
+    barColor: '#00D4A0',
+    barWidth: '45%',
+    sheetBg: '#0e0e14',
+    sb2Style: 'background:rgba(0,212,160,0.12);border-color:rgba(0,212,160,0.4);color:#00D4A0'
+  }
+};
+
+function setDemo(type) {
+  const s = states[type];
+  document.getElementById('sheet-badge').textContent = s.badge;
+  document.getElementById('sheet-badge').style.cssText = `background:${s.badgeBg};border:1px solid ${s.badgeBorder};color:${s.badgeColor};display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:5px 12px;font-size:10px;font-family:'Syne',sans-serif;font-weight:700;margin-bottom:12px`;
+  document.getElementById('sheet-price').textContent = s.price;
+  document.getElementById('sheet-price').style.color = s.priceColor;
+  document.getElementById('dp-price').textContent = s.price;
+  document.getElementById('dp-price').style.color = s.priceColor;
+  document.getElementById('sheet-title').textContent = s.title;
+  document.getElementById('sheet-sub').textContent = s.sub;
+  document.getElementById('sheet-bar').style.background = s.barColor;
+  document.getElementById('sheet-bar').style.width = s.barWidth;
+  document.getElementById('demo-sheet').style.background = s.sheetBg;
+  document.getElementById('sb2').style.cssText = s.sb2Style + ';flex:1;border-radius:12px;padding:9px 4px;font-size:10px;font-family:Syne,sans-serif;font-weight:700;text-align:center;cursor:pointer;border:1px solid';
+
+  document.querySelectorAll('.toggle-btn').forEach(b => { b.className = 'toggle-btn'; });
+  const btns = document.querySelectorAll('.toggle-btn');
+  if(type==='red') btns[0].className = 'toggle-btn active-red';
+  if(type==='yellow') btns[1].className = 'toggle-btn active-yellow';
+  if(type==='green') btns[2].className = 'toggle-btn active-green';
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
